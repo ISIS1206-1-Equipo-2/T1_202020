@@ -75,9 +75,9 @@ public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamic
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
 			T res = null;
 			boolean centinela = false; 
-			for (int i = 0; i<elementos.length && !centinela; i++)
+			for (int i = 0; i<elementos.length && !centinela  && elementos[i] != null; i++)
 			{
-				if( elementos[i] == dato)
+				if( dato.compareTo((T) elementos[i]) == 0)
 				{
 					res = dato;
 					centinela = true; 
@@ -91,8 +91,8 @@ public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamic
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
 			T res = null;
 			boolean centinela = false;
-			for (int i = 0; i < elementos.length && !centinela ; i++) {
-	            if (elementos[i] == dato) {
+			for (int i = 0; i < elementos.length && !centinela; i++) {
+	            if (dato.compareTo((T) elementos[i]) == 0) {
                 	res = (T) elementos[i];
                 	centinela = true; 
 	                for (int j = i; j < elementos.length - 1; j++) {

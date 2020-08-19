@@ -44,7 +44,7 @@ public class Controller {
 					break;
 
 				case 2:
-					view.printMessage("--------- \nDar cadena (simple) a ingresar: ");
+					view.printMessage("--------- \nDar Integer a ingresar: ");
 					dato = lector.nextInt();
 					modelo.agregar(dato);
 					view.printMessage("Dato agregado");
@@ -52,7 +52,7 @@ public class Controller {
 					break;
 
 				case 3:
-					view.printMessage("--------- \nDar cadena (simple) a buscar: ");
+					view.printMessage("--------- \nDar Integer  a buscar: ");
 					dato = lector.nextInt();
 					respuesta = modelo.buscar(dato);
 					if ( respuesta != null)

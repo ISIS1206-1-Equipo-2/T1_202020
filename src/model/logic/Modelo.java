@@ -38,12 +38,22 @@ public class Modelo {
 	{
 		return datos.darTamano();
 	}
+	
+	/**
+	 * Requerimiento de dar elemento en una posición especifica
+	 * @param Posición de dato a buscar
+	 * @return Elemento en la posición dada
+	 */
+	public Integer darElemento(int pos)
+	{
+		return datos.darElemento( pos );
+	}
 
 	/**
 	 * Requerimiento de agregar dato
 	 * @param dato
 	 */
-	public void agregar(Integer dato)
+	public <T> void agregar(Integer dato)
 	{	
 		datos.agregar(dato);
 	}
