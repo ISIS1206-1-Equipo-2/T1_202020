@@ -40,6 +40,16 @@ public class Modelo {
 	}
 
 	/**
+	 * Requerimiento de dar elemento en una posición especifica
+	 * @param Posición de dato a buscar
+	 * @return Elemento en la posición dada
+	 */
+	public String darElemento(int pos)
+	{
+		return datos.darElemento( pos );
+	}
+	
+	/**
 	 * Requerimiento de agregar dato
 	 * @param dato
 	 */

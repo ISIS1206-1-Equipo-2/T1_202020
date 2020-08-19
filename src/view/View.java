@@ -35,7 +35,7 @@ public class View
 			System.out.println("Tamaño:" +Integer.toString(modelo.darTamano()));
 			for( int i=0; i<modelo.darTamano(); i++)
 			{
-				System.out.println("["+i+"]"+"--->" + modelo.buscar(""+i));
+				System.out.println("["+i+"]"+"--->" + modelo.darElemento(i));
 			}
 			
 			
