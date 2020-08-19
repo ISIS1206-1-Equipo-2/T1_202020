@@ -26,12 +26,19 @@ public class TestArregloDinamico {
 	@Test
 	public void testArregloDinamico() {
 		// TODO
+		assertTrue(arreglo!=null);
+		assertEquals(0, arreglo.darTamano());  // Modelo con 0 elementos presentes.
 	}
 
 	@Test
 	public void testDarElemento() {
 		setUp2();
 		// TODO
+		for(int i = 0; i<TAMANO*2; i++)
+		{
+			String elemento = arreglo.darElemento(i);
+			assertEquals(elemento, ""+i);
+		}
 	}
 
 }

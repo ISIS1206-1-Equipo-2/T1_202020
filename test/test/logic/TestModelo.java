@@ -31,23 +31,42 @@ public class TestModelo {
 	@Test
 	public void testDarTamano() {
 		// TODO
+		setUp2();
+		int tamanio = modelo.darTamano();
+		assertEquals( tamanio, CAPACIDAD);
 	}
 
 	@Test
 	public void testAgregar() {
 		// TODO Completar la prueba
+		for( int i = 0; i<modelo.darTamano(); i++)
+		{
+			String num = modelo.buscar(""+i);
+			assertEquals( ""+i, num);
+		}
 	}
 
 	@Test
 	public void testBuscar() {
 		setUp2();
 		// TODO Completar la prueba
+		for( int i = 0; i<CAPACIDAD; i++)
+		{
+			String elem = modelo.buscar(""+i);
+			assertEquals(""+i, elem);
+		}
 	}
 
 	@Test
 	public void testEliminar() {
 		setUp2();
 		// TODO Completar la prueba
+		for( int i = 0; i<CAPACIDAD; i++)
+		{
+			String eliminado = modelo.eliminar(""+i);
+			assertNull(modelo.buscar(""+i));
+			assertEquals(""+i, eliminado);
+		}
 		
 	}
 

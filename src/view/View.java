@@ -31,5 +31,13 @@ public class View
 		public void printModelo(Modelo modelo)
 		{
 			// TODO implementar
+			System.out.println("Módelo dinámico de Strings");
+			System.out.println("Tamaño:" +Integer.toString(modelo.darTamano()));
+			for( int i=0; i<modelo.darTamano(); i++)
+			{
+				System.out.println("["+i+"]"+"--->" + modelo.buscar(""+i));
+			}
+			
+			
 		}
 }
