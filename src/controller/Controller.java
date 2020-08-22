@@ -27,8 +27,8 @@ public class Controller {
 	{
 		Scanner lector = new Scanner(System.in);
 		boolean fin = false;
-		Integer dato;
-		Integer respuesta;
+		int dato;
+		int respuesta;
 
 		while( !fin ){
 			view.printMenu();
@@ -44,7 +44,7 @@ public class Controller {
 					break;
 
 				case 2:
-					view.printMessage("--------- \nDar Integer a ingresar: ");
+					view.printMessage("--------- \nDar cadena (simple) a ingresar: ");
 					dato = lector.nextInt();
 					modelo.agregar(dato);
 					view.printMessage("Dato agregado");
@@ -52,10 +52,10 @@ public class Controller {
 					break;
 
 				case 3:
-					view.printMessage("--------- \nDar Integer  a buscar: ");
+					view.printMessage("--------- \nDar cadena (simple) a buscar: ");
 					dato = lector.nextInt();
-					respuesta = modelo.buscar(dato);
-					if ( respuesta != null)
+					respuesta = (int) modelo.buscar(dato);
+					if ( respuesta == dato)
 					{
 						view.printMessage("Dato encontrado: "+ respuesta);
 					}
@@ -69,8 +69,8 @@ public class Controller {
 				case 4:
 					view.printMessage("--------- \nDar cadena (simple) a eliminar: ");
 					dato = lector.nextInt();
-					respuesta = modelo.eliminar(dato);
-					if ( respuesta != null)
+					respuesta = (int) modelo.eliminar(dato);
+					if ( respuesta == dato)
 					{
 						view.printMessage("Dato eliminado "+ respuesta);
 					}

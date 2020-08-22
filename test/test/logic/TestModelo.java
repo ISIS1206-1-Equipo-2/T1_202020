@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class TestModelo {
 	
-	private Modelo modelo;
+	private Modelo<Integer> modelo;
 	private static int CAPACIDAD=100;
 	
 	@Before
@@ -30,45 +30,35 @@ public class TestModelo {
 
 	@Test
 	public void testDarTamano() {
-		setUp2();
 		// TODO
-		int tamanio = modelo.darTamano();
-		assertEquals( tamanio, CAPACIDAD);
+		setUp2();
+		assertEquals(CAPACIDAD, modelo.darTamano());
 	}
 
 	@Test
 	public void testAgregar() {
 		// TODO Completar la prueba
-		for( int i = 0; i<modelo.darTamano(); i++)
-		{
-			int num = modelo.buscar(i);
-			assertEquals( i, num);
-		}
-
+		setUp2();
+		assertEquals("el elemento es incorrecto", "89", Integer.toString(modelo.buscar(89)));
+		assertEquals("el elemento es incorrecto", "30", Integer.toString(modelo.buscar(30)));
+		assertEquals("el elemento es incorrecto", "11", Integer.toString(modelo.buscar(11)));	
 	}
 
 	@Test
 	public void testBuscar() {
 		setUp2();
 		// TODO Completar la prueba
-		for( int i = 0; i<CAPACIDAD; i++)
-		{
-			int elem = modelo.buscar(i);
-			assertEquals(i, elem);
-		}
+		assertEquals("el elemento es incorrecto", "89", Integer.toString(modelo.buscar(89)));
+		assertEquals("el elemento es incorrecto", "30", Integer.toString(modelo.buscar(30)));
+		assertEquals("el elemento es incorrecto", "11", Integer.toString(modelo.buscar(11)));
 	}
 
 	@Test
 	public void testEliminar() {
 		setUp2();
 		// TODO Completar la prueba
-		for( int i = 0; i<CAPACIDAD; i++)
-		{
-			int eliminado = modelo.eliminar(i);
-			assertNull(modelo.buscar(i));
-			assertEquals(i, eliminado);
-		}
-		
+		assertEquals("el elemento no es eliminado", "89", Integer.toString(modelo.eliminar(89)));
+		assertEquals(null, modelo.buscar(89));
 	}
 
 }
