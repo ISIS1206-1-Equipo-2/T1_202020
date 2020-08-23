@@ -7,93 +7,260 @@ package model.data_structures;
  * @author Fernando De la Rosa
  *
  */
-public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinamico<T> {
-		/**
-		 * Capacidad maxima del arreglo
-		 */
-        private int tamanoMax;
-		/**
-		 * Numero de elementos presentes en el arreglo (de forma compacta desde la posicion 0)
-		 */
-        private int tamanoAct;
-        /**
-         * Arreglo de elementos de tamaNo maximo
-         */
-        private T elementos[ ];
+public abstract class ArregloDinamico <T extends Comparable<T>> implements IArregloDinamico<T> {
+	/**
+	 * Capacidad maxima del arreglo.
+	 */
+	private int tamanoMax;
+	/**
+	 * Numero de elementos presentes en el arreglo (de forma compacta desde la posicion 0).
+	 */
+	private int tamanoAct;
+	/**
+	 * Arreglo de elementos de tamaNo maximo.
+	 */
+	private T elementos[];
 
-        /**
-         * Construir un arreglo con la capacidad maxima inicial.
-         * @param max Capacidad maxima inicial
-         */
-		public ArregloDinamico( int max )
-        {
-               elementos = (T[]) new Comparable[max];
-               tamanoMax = max;
-               tamanoAct = 0;
-        }
-        
-		public void agregar( T dato )
-        {
-               if ( tamanoAct == tamanoMax )
-               {  // caso de arreglo lleno (aumentar tamaNo)
-                    tamanoMax = 2 * tamanoMax;
-                    T[] copia = (T[]) elementos;
-                    elementos = (T[]) new Comparable[tamanoMax];
-                    for ( int i = 0; i < tamanoAct; i++)
-                    {
-                     	 elementos[i] = (T) copia[i];
-                    } 
-            	    System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
-               }	
-               elementos[tamanoAct] = dato;
-               tamanoAct++;
-       }
+	/**
+	 * Construir un arreglo con la capacidad maxima inicial.
+	 * @param max Capacidad maxima inicial.
+	 */
+	public ArregloDinamico( int max )
+	{
+		elementos = (T[]) new Comparable[max];
+		tamanoMax = max;
+		tamanoAct = 0;
+	}
 
-		public int darCapacidad() {
-			return tamanoMax;
-		}
+	/**
+	 * Agrega un elemento al principio del arreglo.
+	 * @param element Elemento a agregar.
+	 */
+	public void addFirst( T element )
+	{			
+		T[] copia = (T[]) elementos;
+		if ( tamanoAct == tamanoMax )
+		{  	maxTamanio( ); }
+		for ( int i = 1; i < tamanoAct; i++)
+		{
+			elementos[i] = (T) copia[i-1];
+		} 
+		elementos[0] = element;
+		tamanoAct++;
+	}
 
-		public int darTamano() {
-			return tamanoAct;
-		}
-
-		public T darElemento(int i) {
-			// TODO implementar
-			return elementos[i];
-		}
-
-		public T buscar(T dato) {
-			// TODO implementar
-			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
-			T rta = null;
-			for(int i=0;i<tamanoAct-1 && rta == null;i++)
+	/**
+	 * Agrega un elemento al final del arreglo.
+	 * @param element Elemento a agregar.
+	 */
+	public void addLast( T element )
+	{
+		T[] copia = (T[]) elementos;
+		if ( tamanoAct == tamanoMax )
+		{  	maxTamanio( ); 
+			for ( int i = 0; i < tamanoAct; i++)
 			{
-				T elemento =elementos[i];
-				if(dato.compareTo(elemento)==0)
-				{
-					rta=elemento;
-				}
-			}
-			return rta;
-		}
+				elementos[i] = (T) copia[i];
+			} 
+		}	
+		elementos[tamanoAct] = element;
+		tamanoAct++;
+	}
 
-		public T eliminar(T dato) {
-			// TODO implementar
-			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
-			boolean eliminado=false;
-			for(int i=0;i<tamanoAct && !eliminado;i++)
+	/**
+	 * Agrega un elemento en una posición válida.
+	 * @param element Elemento a agregar.
+	 * @param pos Posición en donde se va a agregar el elemento.
+	 */
+	public void insertElement(T element, int pos) {
+		T[] copia = (T[]) elementos;
+		if ( tamanoAct == tamanoMax ) { maxTamanio( );}		
+		for ( int i = 1, j = 1; i < tamanoAct+1; i++){
+			if( i == pos){
+				elementos[i-1] = element; 
+				j++;
+			}
+			else{
+				elementos[i-1] = (T) copia[i-j]; 
+			}
+		} 
+		tamanoAct++;
+	}
+
+	/**
+	 * Elimina el primer elemento en el arreglo.
+	 * @return res Elemento eliminado.
+	 */
+	public T removefirst( )
+	{
+		T res;
+		T[] copia = (T[]) elementos;
+		if(elementos.length == 0){ res = null; }
+		else{
+			res = elementos[0];
+			for( int i = 0; i < elementos.length-1; i++)
 			{
-				T elemento =elementos[i];
-				if(dato.compareTo(elemento)==0)
-				{
-					for(int j=i; j<tamanoAct-1;j++ )
-					{
-						elementos[j]=elementos[j+1];
-					}
-					eliminado=true;
-				}
+				elementos[i] = copia[i+1];
 			}
-			return dato;
+			elementos[elementos.length-1] = null;
+			tamanoAct--;
 		}
+		return res;
+	}
 
+	/**
+	 * Elimina el último elemento en el arreglo.
+	 * @return res Elemento eliminado.
+	 */
+	public T removeLast( )
+	{
+		T res = elementos[elementos.length-1];
+		elementos[elementos.length-1] = null;
+		tamanoAct--;
+		return res;
+	}
+
+	/**
+	 * Elimina el elemento de una posición válida.
+	 * @return res Elemento eliminado.
+	 */
+	public T deleteElement(int pos) {
+		T res = null;
+		boolean centinela = false;
+		for (int i = 0; i < elementos.length && !centinela ; i++) {
+			if (i+1 == pos) {
+				res = (T) elementos[i];
+				centinela = true; 
+				for (int j = i; j < elementos.length - 1; j++) {
+					elementos[j] = elementos[j+1];
+				}
+				elementos[elementos.length - 1] = null;
+				tamanoAct--;
+			}
+		}
+		return res; 
+	}
+	
+	/**
+	 * Retorna el primer elemento del arreglo.
+	 * @return Primer elemento del arreglo.
+	 */
+	public T firstElement( )
+	{
+		return elementos[0];
+	}
+
+	/**
+	 * Retorna el último elemento del arreglo.
+	 * @return último elemento del arreglo.
+	 */
+	public T lastElement( )
+	{
+		return elementos[tamanoAct];
+	}
+	
+	/**
+	 * Retorna el elemento que se encuentra en la posición dada
+	 * @return Elemento en la posición dada.
+	 */
+	public T getElemento(int i) {
+		// TODO implementar
+		return (i>0 && i<=elementos.length)?elementos[i-1]:null;
+	}
+
+	/**
+	 * Busca un elemento en el arreglo.
+	 * @return Elemento encontrado. En caso tal que no se encuentré, retorna null.
+	 */
+	public T findElement(T dato) {
+		T rta = null;
+		for(int i=0;i<tamanoAct-1 && rta == null;i++)
+		{
+			T elemento =elementos[i];
+			if(dato.compareTo(elemento)==0)
+			{
+				rta=elemento;
+			}
+		}
+		return rta;
+	}
+	
+	/**
+	 * Retorna el tamaño del arreglo.
+	 * @return Tamaño del arreglo.
+	 */
+	public int size( )
+	{
+		return elementos.length;
+	}
+	
+	/**
+	 * Verifica si el arreglo está vacío.
+	 * @return true si el arreglo se encuentra vacío, de lo contrario false.
+	 */
+	public boolean isEmpty( )
+	{
+		return (elementos.length==0)?true:false;
+	}
+	
+	/**
+	 * Busca un elemento y retorna su posición.
+	 * @return res Posición del elemento buscado. Si no se encuentra retorna -1.
+	 */
+	public int isPresent( T element)
+	{
+		int res = -1;
+		boolean cent = false; 
+		for(int i = 0; i>elementos.length && !cent; i++)
+		{
+			if(elementos[i].compareTo(element) == 0)
+			{
+				res = i+1;
+			}
+		}
+		return res; 
+	}
+	
+	/**
+	 * Intercambia dos elementos del arreglo.
+	 */
+	public void exchange( int pos1, int pos2)
+	{
+		T one = null;
+		T two = null;
+		boolean cent = false; 
+		int cont = 0;
+		
+		for( int i = 0; i<elementos.length && !cent; i++)
+		{
+			if(i==pos1) {one = elementos[i]; cont++;}
+			else if(i==pos2) {two = elementos[i]; cont++;}
+			else if( cont == 2){ 
+				cent = true;
+				elementos[pos1] = two;
+				elementos[pos2] = one;
+			}
+		}
+	}
+	
+	/**
+	 * Cambia un elemento dada una posición valida en el arreglo.
+	 */
+	public void changeInfo( int pos, T elem)
+	{
+		if(pos>0 && pos<=elementos.length)
+		{
+			elementos[pos] = elem;
+		}
+	}
+	
+	/**
+	 * Aumenta el arreglo cuando se encuentra lleno.
+	 */
+	private void maxTamanio( )
+	{
+		tamanoMax = 2 * tamanoMax;
+		elementos = (T[]) new Comparable[tamanoMax];
+		System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
+	}
 }
