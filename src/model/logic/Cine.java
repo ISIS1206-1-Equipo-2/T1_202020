@@ -109,10 +109,13 @@ public class Cine
 				}
 			}
 		}
+		String rta = "El director no tiene ninguna película buena";
 		if(val_prom!=0 && cantidad!=0)
+		{
 			val_prom=val_prom/cantidad;
-		
-		return (respuesta + '\n' + "cantidad: " + cantidad + '\n' +"valoración promedio: " + val_prom + '\n');
+			rta=respuesta + '\n' + "cantidad: " + cantidad + '\n' +"valoración promedio: " + val_prom + '\n';
+		}
+		return (rta);
 	}
 
 	public int darTamano() {
