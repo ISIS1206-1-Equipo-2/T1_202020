@@ -1,6 +1,6 @@
 package view;
 
-import model.logic.Modelo;
+import model.logic.Cine;
 
 public class View 
 {
@@ -17,9 +17,11 @@ public class View
 			System.out.println("1. Crear Arreglo Dinamico de Strings");
 			System.out.println("2. Agregar String");
 			System.out.println("3. Buscar String");
-			System.out.println("4. Eliminar String");
+			System.out.println("4. Eliminar int");
 			System.out.println("5. Imprimir el Arreglo");
-			System.out.println("6. Exit");
+			System.out.println("6. Cargar datos de peliculas");
+			System.out.println("7. Dar mejores peliculas");
+			System.out.println("8. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}
 
@@ -28,7 +30,7 @@ public class View
 			System.out.println(mensaje);
 		}		
 		
-		public void printModelo(Modelo modelo)
+		public void printModelo(Cine modelo)
 		{
 			// TODO implementar
 			System.out.println(modelo);
