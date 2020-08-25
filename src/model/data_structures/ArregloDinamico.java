@@ -74,10 +74,11 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 	 */
 	public void insertElement(T element, int pos) {
 		T[] copia = (T[]) elementos;
+		elementos = (T[]) new Comparable[copia.length];
 		if ( tamanoAct == tamanoMax ) { maxTamanio( );}		
-		for ( int i = 1, j = 1; i < tamanoAct+1; i++){
+		for ( int i = 1, j=1; i <= tamanoAct+1; i++){
 			if( i == pos){
-				elementos[i-1] = element; 
+				elementos[i-1] = element;
 				j++;
 			}
 			else{
@@ -94,13 +95,12 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 	public T removefirst( )
 	{
 		T res;
-		T[] copia = (T[]) elementos;
 		if(elementos.length == 0){ res = null; }
 		else{
 			res = elementos[0];
 			for( int i = 0; i < elementos.length-1; i++)
 			{
-				elementos[i] = copia[i+1];
+				elementos[i] = elementos[i+1];
 			}
 			elementos[elementos.length-1] = null;
 			tamanoAct--;
@@ -191,7 +191,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 	 */
 	public int size( )
 	{
-		return elementos.length;
+		return tamanoAct;
 	}
 	
 	/**
@@ -200,7 +200,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 	 */
 	public boolean isEmpty( )
 	{
-		return (elementos.length==0)?true:false;
+		return (size()==0)?true:false;
 	}
 	
 	/**
@@ -211,11 +211,15 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 	{
 		int res = -1;
 		boolean cent = false; 
-		for(int i = 0; i>elementos.length && !cent; i++)
+		for(int i = 0; i<elementos.length && !cent; i++)
 		{
-			if(elementos[i].compareTo(element) == 0)
+			if(elementos[i] !=null)	
 			{
-				res = i+1;
+				if(elementos[i].compareTo(element) == 0)
+				{
+					res = i+1;
+					cent = true;
+				}
 			}
 		}
 		return res; 
@@ -231,14 +235,14 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 		boolean cent = false; 
 		int cont = 0;
 		
-		for( int i = 0; i<elementos.length && !cent; i++)
+		for( int i = 1; i<elementos.length && !cent; i++)
 		{
-			if(i==pos1) {one = elementos[i]; cont++;}
-			else if(i==pos2) {two = elementos[i]; cont++;}
+			if(i==pos1) {one = elementos[i-1]; cont++;}
+			else if(i==pos2) {two = elementos[i-1]; cont++;}
 			else if( cont == 2){ 
 				cent = true;
-				elementos[pos1] = two;
-				elementos[pos2] = one;
+				elementos[pos1-1] = two;
+				elementos[pos2-1] = one;
 			}
 		}
 	}
@@ -250,7 +254,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 	{
 		if(pos>0 && pos<=elementos.length)
 		{
-			elementos[pos] = elem;
+			elementos[pos-1] = elem;
 		}
 	}
 	
